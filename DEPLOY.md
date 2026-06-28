@@ -16,7 +16,7 @@
 |--------|-----|
 | `EPAY_PID` | `29145` |
 | `EPAY_KEY` | 你的 MD5 密钥（商户后台 API 信息页） |
-| `EPAY_API_URL` | `https://pay.v8jsu.cn/` |
+| `EPAY_API_URL` | `https://pay.v8jisu.cn/` |
 | `SITE_URL` | `https://qineng.help` |
 
 ### 3. 绑定域名
@@ -47,7 +47,7 @@ Vercel 项目 → **Settings → Domains** → 添加：
 
 ## 三、彩虹易支付后台配置
 
-1. 登录 https://pay.v8jsu.cn/
+1. 登录 https://pay.v8jisu.cn/
 2. **域名授权** → 添加 `qineng.help`
 3. 确认已开通 **支付宝 + 微信** 通道
 
