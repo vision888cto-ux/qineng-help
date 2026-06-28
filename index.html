@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>星桥账号 | 出海账号 · AI Token · 平台教程</title>
+    <meta
+      name="description"
+      content="星桥账号提供 AI 大模型账号、海外社交账号、API Token 中转与交易所返佣，配套中文购买教程、交付说明与售后规则。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="checkout-modal" id="checkoutModal" hidden aria-hidden="true">
+      <div class="checkout-backdrop" id="checkoutBackdrop"></div>
+      <div class="checkout-dialog" role="dialog" aria-labelledby="checkoutTitle" aria-modal="true">
+        <button class="checkout-close" id="checkoutClose" type="button" aria-label="关闭">×</button>
+        <h3 id="checkoutTitle">确认购买</h3>
+        <div class="checkout-product">
+          <span class="checkout-label">商品</span>
+          <strong id="checkoutProductName">—</strong>
+        </div>
+        <div class="checkout-product">
+          <span class="checkout-label">金额</span>
+          <strong id="checkoutProductPrice" class="checkout-price">—</strong>
+        </div>
+        <div class="checkout-methods">
+          <span class="checkout-label">支付方式</span>
+          <div class="pay-method-btns">
+            <button type="button" class="pay-method active" data-pay-type="alipay">
+              <span class="pay-icon alipay">支</span>
+              支付宝
+            </button>
+            <button type="button" class="pay-method" data-pay-type="wxpay">
+              <span class="pay-icon wxpay">微</span>
+              微信支付
+            </button>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary btn-block btn-lg" id="confirmPayBtn">去支付</button>
+        <p class="checkout-hint">支付完成后将自动跳转回本站，人工发货一般 1-6 小时。</p>
+      </div>
+    </div>
+
+    <header class="header" id="header">
+      <div class="header-inner">
+        <a class="logo" href="#home">
+          <span class="logo-icon">星</span>
+          <span class="logo-text">
+            <strong>星桥账号</strong>
+            <small>Global Account Hub</small>
+          </span>
+        </a>
+
+        <nav class="nav" id="mainNav" aria-label="主导航">
+          <a href="#shop">商品购买</a>
+          <a href="#services">服务分类</a>
+          <a href="#guides">教程中心</a>
+          <a href="#payment">付款地址</a>
+          <a href="#faq">常见问题</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="btn btn-ghost" href="#guides">查看教程</a>
+          <a class="btn btn-primary" href="#contact">联系客服</a>
+          <button class="menu-toggle" id="menuToggle" type="button" aria-label="打开菜单" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="home">
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-content">
+            <div class="hero-badge">
+              <span class="dot"></span>
+              中文教程 · 人工售后 · 下单前可咨询
+            </div>
+            <h1>出海账号与 AI 工具<br /><em>一站购齐</em></h1>
+            <p class="hero-desc">
+              面向中文用户的账号服务平台。购买入口、使用教程、交付规则、付款地址集中展示，减少反复沟通成本。
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary btn-lg" href="#shop">浏览商品</a>
+              <a class="btn btn-outline btn-lg" href="#payment">查看付款地址</a>
+            </div>
+            <div class="hero-stats">
+              <div class="stat">
+                <strong>6+</strong>
+                <span>平台教程</span>
+              </div>
+              <div class="stat">
+                <strong>7</strong>
+                <span>收款网络</span>
+              </div>
+              <div class="stat">
+                <strong>1-6h</strong>
+                <span>人工发货</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <img src="./assets/hero-aigc-light.png" alt="星桥账号服务平台" width="640" height="480" />
+            <div class="hero-card card-1">
+              <span class="card-label">今日交付</span>
+              <strong>AI 账号 · 社交账号 · 返佣链接</strong>
+            </div>
+            <div class="hero-card card-2">
+              <span class="card-label">参考汇率</span>
+              <strong>1 USDT ≈ ¥7.18</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick nav -->
+      <div class="quick-nav">
+        <div class="quick-nav-inner">
+          <a href="#shop">AI 大模型</a>
+          <a href="#services-social">社交媒体</a>
+          <a href="#services-exchange">交易所返佣</a>
+          <a href="#delivery">发货流程</a>
+          <a href="#payment">USDT 付款</a>
+          <a href="#risk">购买须知</a>
+        </div>
+      </div>
+
+      <!-- Shop -->
+      <section class="section" id="shop">
+        <div class="section-header">
+          <span class="section-tag">商品购买</span>
+          <h2>热门成品账号</h2>
+          <p>人民币标价，USDT 金额按参考汇率估算。付款前请先联系客服确认库存。</p>
+        </div>
+
+        <div class="shop-toolbar">
+          <div class="filter-group" role="group" aria-label="商品分类">
+            <button type="button" class="filter-btn active" data-filter="all">全部</button>
+            <button type="button" class="filter-btn" data-filter="chatgpt">ChatGPT</button>
+            <button type="button" class="filter-btn" data-filter="claude">Claude</button>
+            <button type="button" class="filter-btn" data-filter="gemini">Gemini</button>
+          </div>
+          <div class="rate-chip">
+            <span>参考汇率</span>
+            <strong id="rateDisplay">1 USDT ≈ ¥7.18</strong>
+          </div>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+          <article class="product-item featured" data-category="chatgpt">
+            <div class="product-img">
+              <img src="./assets/product-gpt.svg" alt="GPT 成品账号" />
+              <span class="product-tag">热门</span>
+            </div>
+            <div class="product-info">
+              <span class="product-cat">AI 工具 / ChatGPT</span>
+              <h3>GPT 成品账号</h3>
+              <p>已开通可交付，适合写作、翻译、代码辅助与日常 AI 使用。</p>
+              <div class="product-meta">
+                <div class="price">
+                  <strong>¥168</strong>
+                  <span>≈ 23.40 USDT</span>
+                </div>
+                <span class="stock in-stock">有货</span>
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary btn-block buy-btn"
+                data-product-id="gpt"
+                data-order="GPT 成品账号"
+                data-cny="168"
+              >立即购买</button>
+            </div>
+          </article>
+
+          <article class="product-item" data-category="claude">
+            <div class="product-img">
+              <img src="./assets/product-claude.svg" alt="Claude 成品账号" />
+            </div>
+            <div class="product-info">
+              <span class="product-cat">AI 工具 / Claude</span>
+              <h3>Claude 成品账号</h3>
+              <p>适合长文写作、代码辅助、资料整理，交付前可确认账号类型。</p>
+              <div class="product-meta">
+                <div class="price">
+                  <strong>¥188</strong>
+                  <span>≈ 26.18 USDT</span>
+                </div>
+                <span class="stock in-stock">有货</span>
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary btn-block buy-btn"
+                data-product-id="claude"
+                data-order="Claude 成品账号"
+                data-cny="188"
+              >立即购买</button>
+            </div>
+          </article>
+
+          <article class="product-item" data-category="gemini">
+            <div class="product-img">
+              <img src="./assets/product-gemini.svg" alt="Gemini 成品账号" />
+            </div>
+            <div class="product-info">
+              <span class="product-cat">AI 工具 / Gemini</span>
+              <h3>Gemini 成品账号</h3>
+              <p>轻量 AI 使用与资料处理，价格低，适合新手入门体验。</p>
+              <div class="product-meta">
+                <div class="price">
+                  <strong>¥70</strong>
+                  <span>≈ 9.75 USDT</span>
+                </div>
+                <span class="stock in-stock">有货</span>
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary btn-block buy-btn"
+                data-product-id="gemini"
+                data-order="Gemini 成品账号"
+                data-cny="70"
+              >立即购买</button>
+            </div>
+          </article>
+        </div>
+
+        <div class="shop-note">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 7v4M8 5h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span>更多平台账号（Facebook、Telegram、Google 等）请查看下方服务分类或联系客服获取报价。</span>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section class="section section-alt" id="services">
+        <div class="section-header">
+          <span class="section-tag">服务分类</span>
+          <h2>按用途选择服务</h2>
+          <p>每个品类都配有中文教程与售后说明，购买前先确认用途和交付范围。</p>
+        </div>
+
+        <div class="service-tabs" role="tablist">
+          <button class="service-tab active" role="tab" data-service="ai" aria-selected="true">AI / Token</button>
+          <button class="service-tab" role="tab" data-service="social" aria-selected="false">社交媒体</button>
+          <button class="service-tab" role="tab" data-service="exchange" aria-selected="false">交易所返佣</button>
+          <button class="service-tab" role="tab" data-service="bundle" aria-selected="false">新手套餐</button>
+        </div>
+
+        <div class="service-panel active" id="service-ai" data-service-panel="ai">
+          <div class="service-cards">
+            <article class="service-card">
+              <div class="service-icon ai">API</div>
+              <h3>OpenAI API Token 中转</h3>
+              <p>适合开发者、AI 应用与自动化脚本，支持余额充值与 Key 管理。</p>
+              <ul>
+                <li><span>交付</span>自动 / 人工</li>
+                <li><span>适合</span>开发调用</li>
+                <li><span>售后</span>用量异常排查</li>
+              </ul>
+              <a class="link-arrow" href="#guide-openai">查看接入教程 →</a>
+            </article>
+            <article class="service-card">
+              <div class="service-icon chat">GPT</div>
+              <h3>ChatGPT / Claude 账号</h3>
+              <p>适合内容写作、翻译、代码与运营工作流，购买前确认套餐类型。</p>
+              <ul>
+                <li><span>交付</span>人工核对</li>
+                <li><span>适合</span>日常使用</li>
+                <li><span>售后</span>登录协助</li>
+              </ul>
+              <a class="link-arrow" href="#shop">查看商品 →</a>
+            </article>
+            <article class="service-card">
+              <div class="service-icon tool">Pro</div>
+              <h3>Cursor / Midjourney 等</h3>
+              <p>面向研发、设计和内容团队，配套开通说明与基础使用教程。</p>
+              <ul>
+                <li><span>交付</span>1-6 小时</li>
+                <li><span>适合</span>生产力工具</li>
+                <li><span>售后</span>套餐说明</li>
+              </ul>
+              <a class="link-arrow" href="#contact">咨询报价 →</a>
+            </article>
+          </div>
+        </div>
+
+        <div class="service-panel" id="services-social" data-service-panel="social">
+          <div class="platform-table">
+            <div class="platform-row head">
+              <span>平台</span>
+              <span>常见用途</span>
+              <span>购买前确认</span>
+              <span></span>
+            </div>
+            <div class="platform-row">
+              <span class="platform-name">Facebook</span>
+              <span>主页运营、广告前准备、资料完善</span>
+              <span>登录环境、资料信息、售后范围</span>
+              <a href="#guide-facebook">教程</a>
+            </div>
+            <div class="platform-row">
+              <span class="platform-name">Google / Gmail</span>
+              <span>工具注册、开发者服务、海外邮箱</span>
+              <span>辅助邮箱、恢复方式、使用地区</span>
+              <a href="#guide-google">教程</a>
+            </div>
+            <div class="platform-row">
+              <span class="platform-name">Telegram / Discord</span>
+              <span>社群运营、机器人、项目沟通</span>
+              <span>手机号归属、二次验证、登录设备</span>
+              <a href="#guide-telegram">教程</a>
+            </div>
+            <div class="platform-row">
+              <span class="platform-name">TikTok / X</span>
+              <span>内容账号、品牌展示、海外触达</span>
+              <span>地区定位、资料完善、内容规范</span>
+              <a href="#guides">教程</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-panel" id="services-exchange" data-service-panel="exchange">
+          <div class="exchange-cards">
+            <article class="exchange-card">
+              <strong>Binance 返佣</strong>
+              <p>开户链接 / 费率说明 / KYC 提醒</p>
+              <a class="btn btn-outline btn-sm" href="#contact">领取链接</a>
+            </article>
+            <article class="exchange-card">
+              <strong>OKX 返佣</strong>
+              <p>注册链接 / 活动权益 / 新手说明</p>
+              <a class="btn btn-outline btn-sm" href="#contact">领取链接</a>
+            </article>
+            <article class="exchange-card">
+              <strong>Bybit / Bitget</strong>
+              <p>多平台开户选择 / 手续费说明</p>
+              <a class="btn btn-outline btn-sm" href="#contact">咨询选择</a>
+            </article>
+          </div>
+          <p class="disclaimer">交易所有风险，页面仅提供开户链接与费率说明，不构成投资建议。</p>
+        </div>
+
+        <div class="service-panel" data-service-panel="bundle">
+          <div class="bundle-cards">
+            <article class="bundle-card">
+              <span class="bundle-label">开发者</span>
+              <h3>AI 开发者包</h3>
+              <p>Token 余额 + API 教程 + 调用示例，适合 AI 产品与自动化脚本。</p>
+            </article>
+            <article class="bundle-card">
+              <span class="bundle-label">运营</span>
+              <h3>出海运营包</h3>
+              <p>海外邮箱 + 社交账号 + 资料清单，适合跨境独立站与社媒运营。</p>
+            </article>
+            <article class="bundle-card">
+              <span class="bundle-label">Web3</span>
+              <h3>Web3 新手包</h3>
+              <p>返佣开户 + 钱包教程 + 风险说明，适合刚接触交易所的新用户。</p>
+            </article>
+          </div>
+          <div class="bundle-cta">
+            <a class="btn btn-primary" href="#contact">让客服帮我搭配</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Guides -->
+      <section class="section" id="guides">
+        <div class="section-header">
+          <span class="section-tag">教程中心</span>
+          <h2>购买与使用说明</h2>
+          <p>每个平台的核心流程都在这里，后续可扩展为独立 SEO 页面。</p>
+        </div>
+
+        <div class="guide-search" role="search">
+          <input id="guideSearch" type="search" placeholder="搜索：Facebook、OpenAI、Claude、Binance..." />
+          <button type="button" id="searchBtn" class="btn btn-primary">搜索</button>
+        </div>
+
+        <div class="guide-layout">
+          <aside class="guide-nav" aria-label="教程列表">
+            <button class="guide-nav-item active" data-guide="facebook">Facebook 账号</button>
+            <button class="guide-nav-item" data-guide="openai">OpenAI Token</button>
+            <button class="guide-nav-item" data-guide="claude">Claude 账号</button>
+            <button class="guide-nav-item" data-guide="google">Google / Gmail</button>
+            <button class="guide-nav-item" data-guide="telegram">Telegram</button>
+            <button class="guide-nav-item" data-guide="binance">交易所返佣</button>
+          </aside>
+
+          <div class="guide-content">
+            <article class="guide-article active" id="guide-facebook" data-guide-panel="facebook">
+              <header class="guide-header">
+                <span class="guide-platform">Facebook</span>
+                <h3>Facebook 账号购买与使用说明</h3>
+                <p>适合主页运营、海外工具注册、广告投放前资料准备等场景。</p>
+              </header>
+              <section>
+                <h4>购买前需要确认</h4>
+                <ol>
+                  <li>确认账号用途：主页运营、工具注册、商务沟通，还是广告前准备。</li>
+                  <li>确认是否需要邮箱、手机号、2FA、资料截图等配套信息。</li>
+                  <li>确认登录环境是否稳定，避免频繁更换设备、地区和网络。</li>
+                  <li>确认售后边界：哪些情况支持协助，哪些属于平台规则或使用行为导致。</li>
+                </ol>
+              </section>
+              <section>
+                <h4>发货一般包含</h4>
+                <p>常见交付包括账号登录信息、绑定邮箱信息、初始资料说明、注意事项和售后联系入口。具体以下单页面说明为准。</p>
+              </section>
+              <section>
+                <h4>首次登录建议</h4>
+                <ol>
+                  <li>首次登录后先检查邮箱、手机号、资料页和安全设置。</li>
+                  <li>不要立即大批量加好友、发广告、频繁切换地区或设备。</li>
+                  <li>广告用途时，先完善资料、主页内容和业务信息。</li>
+                </ol>
+              </section>
+            </article>
+
+            <article class="guide-article" id="guide-openai" data-guide-panel="openai">
+              <header class="guide-header">
+                <span class="guide-platform">AI Token</span>
+                <h3>OpenAI API Token 中转接入教程</h3>
+                <p>适合开发者、AI 产品、自动化脚本和内部工具。</p>
+              </header>
+              <section>
+                <h4>接入流程</h4>
+                <ol>
+                  <li>联系客服确认模型、用量、并发和预算。</li>
+                  <li>完成充值后获取 API Key、接口地址和调用说明。</li>
+                  <li>先用测试脚本跑通，再接入正式业务。</li>
+                  <li>定期查看余额和错误日志，避免业务中断。</li>
+                </ol>
+              </section>
+              <section>
+                <h4>购买前要问清楚</h4>
+                <p>支持哪些模型、是否支持流式输出、计费单位、余额有效期、请求限制、失败请求是否计费、是否提供用量面板。</p>
+              </section>
+              <section>
+                <h4>使用建议</h4>
+                <p>不要把 Key 暴露在前端页面，不要把用户隐私或敏感业务数据直接发送到不可信环境。企业使用建议做权限隔离和日志审计。</p>
+              </section>
+            </article>
+
+            <article class="guide-article" id="guide-claude" data-guide-panel="claude">
+              <header class="guide-header">
+                <span class="guide-platform">Claude</span>
+                <h3>Claude / ChatGPT 账号购买说明</h3>
+                <p>适合写作、翻译、代码、长文档整理和运营内容生产。</p>
+              </header>
+              <section>
+                <h4>账号类型怎么选</h4>
+                <ol>
+                  <li>个人日常使用：优先看稳定性、登录方式和售后周期。</li>
+                  <li>团队多人使用：建议咨询团队方案，避免多人共用导致异常。</li>
+                  <li>临时体验：选择短周期产品，先确认能否满足用途。</li>
+                </ol>
+              </section>
+              <section>
+                <h4>首次使用注意</h4>
+                <p>首次登录后先检查套餐状态、绑定信息和安全设置。不要频繁切换设备、地区或多人同时登录。</p>
+              </section>
+            </article>
+
+            <article class="guide-article" id="guide-google" data-guide-panel="google">
+              <header class="guide-header">
+                <span class="guide-platform">Google</span>
+                <h3>Google / Gmail 账号使用教程</h3>
+                <p>适合海外工具注册、开发者平台、邮箱收发和账号体系搭建。</p>
+              </header>
+              <section>
+                <h4>收货后先检查</h4>
+                <ol>
+                  <li>检查邮箱能否正常登录。</li>
+                  <li>确认辅助邮箱、手机号或恢复信息是否包含在交付内。</li>
+                  <li>确认是否需要修改密码和开启二次验证。</li>
+                </ol>
+              </section>
+              <section>
+                <h4>使用建议</h4>
+                <p>建议先做正常邮箱行为，再用于其他平台注册。避免短时间批量注册大量服务。</p>
+              </section>
+            </article>
+
+            <article class="guide-article" id="guide-telegram" data-guide-panel="telegram">
+              <header class="guide-header">
+                <span class="guide-platform">Telegram</span>
+                <h3>Telegram / Discord 账号教程</h3>
+                <p>适合社群沟通、项目协作、机器人管理和海外客户触达。</p>
+              </header>
+              <section>
+                <h4>购买前确认</h4>
+                <p>确认手机号归属、登录方式、是否带二次验证、是否可改资料、售后支持多久。</p>
+              </section>
+              <section>
+                <h4>首次登录建议</h4>
+                <ol>
+                  <li>先确认账号资料、绑定方式和安全设置。</li>
+                  <li>不要立即大量私信陌生用户或加入大量群组。</li>
+                  <li>用于项目运营时，建议先完善头像、简介和用户名。</li>
+                </ol>
+              </section>
+            </article>
+
+            <article class="guide-article" id="guide-binance" data-guide-panel="binance">
+              <header class="guide-header">
+                <span class="guide-platform">Crypto</span>
+                <h3>交易所返佣开户链接教程</h3>
+                <p>适合需要注册交易所并了解手续费返佣规则的新用户。</p>
+              </header>
+              <section>
+                <h4>开户链接怎么用</h4>
+                <ol>
+                  <li>通过专属链接进入交易所注册页面。</li>
+                  <li>注册时确认邀请码或返佣标识已显示。</li>
+                  <li>完成邮箱/手机验证和平台要求的身份认证。</li>
+                  <li>在账户中心查看手续费等级和活动权益。</li>
+                </ol>
+              </section>
+              <section>
+                <h4>风险说明</h4>
+                <p>数字资产价格波动大，交易可能产生亏损。本站只提供开户链接和流程说明，不推荐具体币种、不承诺收益。</p>
+              </section>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Delivery -->
+      <section class="section section-alt" id="delivery">
+        <div class="section-header center">
+          <span class="section-tag">发货与售后</span>
+          <h2>下单后每一步都说清楚</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <h4>选择产品</h4>
+            <p>按用途选择平台，复杂需求先问客服。</p>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <h4>确认库存</h4>
+            <p>确认价格、发货时间、包含资料和售后范围。</p>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <h4>付款下单</h4>
+            <p>支持 USDT / USDC 加密货币付款。</p>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <h4>交付资料</h4>
+            <p>自动交付或人工发货，附带使用说明。</p>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <h4>首次检查</h4>
+            <p>收货后先登录检查，不要马上高频操作。</p>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <h4>售后处理</h4>
+            <p>按售后规则提供补发、协助或问题排查。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Payment -->
+      <section class="section" id="payment">
+        <div class="section-header">
+          <span class="section-tag">付款方式</span>
+          <h2>在线支付 · USDT / USDC</h2>
+          <p>推荐在商品页使用<strong>支付宝 / 微信</strong>在线支付；也可使用下方加密货币地址转账。</p>
+        </div>
+
+        <div class="payment-layout">
+          <aside class="payment-sidebar">
+            <div class="order-status" id="payStatus">
+              <span class="status-indicator"></span>
+              <div>
+                <strong>当前状态</strong>
+                <p>在线支付：商品页点购买 · 加密货币：见下方地址</p>
+              </div>
+            </div>
+            <div class="payment-checklist">
+              <h4>付款前核对</h4>
+              <ul>
+                <li>先联系客服确认订单金额和库存</li>
+                <li>选择与钱包一致的网络，勿混用 ERC20 / TRC20 / BEP20</li>
+                <li>付款后提交 TXID、付款金额、购买项目</li>
+                <li>保留交易哈希以便核对到账</li>
+              </ul>
+            </div>
+            <div class="payment-warning">
+              <strong>⚠ 重要提醒</strong>
+              <p>仅向下方官方地址转账。任何私信索要地址的行为均为诈骗。</p>
+            </div>
+          </aside>
+
+          <div class="payment-main">
+            <div class="token-tabs">
+              <button class="token-tab active" type="button" data-pay-token="usdt">USDT</button>
+              <button class="token-tab" type="button" data-pay-token="usdc">USDC</button>
+            </div>
+
+            <div class="pay-grid" data-token-panel="usdt">
+              <article class="pay-item">
+                <img src="./assets/pay-usdt-trc20.jpg" alt="USDT TRC20 二维码" />
+                <div class="pay-details">
+                  <span class="pay-badge usdt">USDT</span>
+                  <h3>Tron（TRC20）</h3>
+                  <code class="pay-address">TYM3YNvfDun45XhaPaDbibntYSJdxu1gCE</code>
+                  <button type="button" class="btn btn-outline btn-sm copy-btn" data-copy="TYM3YNvfDun45XhaPaDbibntYSJdxu1gCE">复制地址</button>
+                </div>
+              </article>
+              <article class="pay-item">
+                <img src="./assets/pay-usdt-bep20.jpg" alt="USDT BEP20 二维码" />
+                <div class="pay-details">
+                  <span class="pay-badge usdt">USDT</span>
+                  <h3>BNB Smart Chain（BEP20）</h3>
+                  <code class="pay-address">0xF5740586e8e299e077ace00E3325b3bdc75202Af</code>
+                  <button type="button" class="btn btn-outline btn-sm copy-btn" data-copy="0xF5740586e8e299e077ace00E3325b3bdc75202Af">复制地址</button>
+                </div>
+              </article>
+              <article class="pay-item">
+                <img src="./assets/pay-usdt-erc20.jpg" alt="USDT ERC20 二维码" />
+                <div class="pay-details">
+                  <span class="pay-badge usdt">USDT</span>
+                  <h3>Ethereum（ERC20）</h3>
+                  <code class="pay-address">0xF5740586e8e299e077ace00E3325b3bdc75202Af</code>
+                  <button type="button" class="btn btn-outline btn-sm copy-btn" data-copy="0xF5740586e8e299e077ace00E3325b3bdc75202Af">复制地址</button>
+                </div>
+              </article>
+              <article class="pay-item">
+                <img src="./assets/pay-usdt-solana.jpg" alt="USDT Solana 二维码" />
+                <div class="pay-details">
+                  <span class="pay-badge usdt">USDT</span>
+                  <h3>Solana</h3>
+                  <code class="pay-address">5XYTdFtiMi19ScRXHpdR7gC6Nekk2KpFuFJbPbcUeZQ3</code>
+                  <button type="button" class="btn btn-outline btn-sm copy-btn" data-copy="5XYTdFtiMi19ScRXHpdR7gC6Nekk2KpFuFJbPbcUeZQ3">复制地址</button>
+                </div>
+              </article>
+            </div>
+
+            <div class="pay-grid hidden" data-token-panel="usdc">
+              <article class="pay-item">
+                <img src="./assets/pay-usdc-erc20.jpg" alt="USDC ERC20 二维码" />
+                <div class="pay-details">
+                  <span class="pay-badge usdc">USDC</span>
+                  <h3>Ethereum（ERC20）</h3>
+                  <code class="pay-address">0xF5740586e8e299e077ace00E3325b3bdc75202Af</code>
+                  <button type="button" class="btn btn-outline btn-sm copy-btn" data-copy="0xF5740586e8e299e077ace00E3325b3bdc75202Af">复制地址</button>
+                </div>
+              </article>
+              <article class="pay-item">
+                <img src="./assets/pay-usdc-arbitrum.jpg" alt="USDC Arbitrum 二维码" />
+                <div class="pay-details">
+                  <span class="pay-badge usdc">USDC</span>
+                  <h3>Arbitrum One</h3>
+                  <code class="pay-address">0xF5740586e8e299e077ace00E3325b3bdc75202Af</code>
+                  <button type="button" class="btn btn-outline btn-sm copy-btn" data-copy="0xF5740586e8e299e077ace00E3325b3bdc75202Af">复制地址</button>
+                </div>
+              </article>
+              <article class="pay-item">
+                <img src="./assets/pay-usdc-bep20.jpg" alt="USDC BEP20 二维码" />
+                <div class="pay-details">
+                  <span class="pay-badge usdc">USDC</span>
+                  <h3>BNB Smart Chain（BEP20）</h3>
+                  <code class="pay-address">0xF5740586e8e299e077ace00E3325b3bdc75202Af</code>
+                  <button type="button" class="btn btn-outline btn-sm copy-btn" data-copy="0xF5740586e8e299e077ace00E3325b3bdc75202Af">复制地址</button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Risk -->
+      <section class="section section-risk" id="risk">
+        <div class="risk-inner">
+          <div class="risk-text">
+            <span class="section-tag">购买须知</span>
+            <h2>下单前请了解</h2>
+          </div>
+          <ul class="risk-items">
+            <li>账号、Token、返佣等产品请以下单页面的具体说明为准。</li>
+            <li>平台规则可能变化，本站不承诺绕过审核、规避风控或永久可用。</li>
+            <li>账号类产品建议正常使用，避免短时间异常登录、批量操作或违规用途。</li>
+            <li>API 中转需注意数据安全，不建议传输敏感身份信息或隐私数据。</li>
+            <li>交易所返佣只提供开户链接和费率说明，不构成投资建议。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section section-alt" id="faq">
+        <div class="section-header">
+          <span class="section-tag">FAQ</span>
+          <h2>常见问题</h2>
+        </div>
+        <div class="faq-list">
+          <details open>
+            <summary>账号多久发货？</summary>
+            <p>自动交付产品通常几分钟内完成，人工核对产品一般 1-6 小时。具体时间取决于库存和产品类型。</p>
+          </details>
+          <details>
+            <summary>购买后登录失败怎么办？</summary>
+            <p>先不要反复尝试，截图联系售后。客服会根据交付资料、登录环境和平台提示协助排查。</p>
+          </details>
+          <details>
+            <summary>可以保证不封号吗？</summary>
+            <p>不能。任何平台账号都受平台规则、登录环境和使用行为影响。我们可以提供使用建议和售后协助，但不能承诺绝对稳定。</p>
+          </details>
+          <details>
+            <summary>API Token 中转适合商用吗？</summary>
+            <p>小规模测试和内部工具可以先试用。正式商用前建议确认并发、稳定性、数据安全、日志和费用规则。</p>
+          </details>
+          <details>
+            <summary>交易所返佣需要付费吗？</summary>
+            <p>返佣开户链接通常免费领取，但交易行为本身有风险，平台规则和权益以交易所页面为准。</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section" id="contact">
+        <div class="contact-layout">
+          <div class="contact-info">
+            <span class="section-tag">联系客服</span>
+            <h2>不知道买哪个？<br />先把用途发给客服</h2>
+            <p>提供 Telegram、微信或 WhatsApp 联系方式后，可替换下方表单为直达入口。</p>
+            <div class="contact-channels">
+              <div class="channel placeholder">
+                <span>Telegram</span>
+                <strong>待接入</strong>
+              </div>
+              <div class="channel placeholder">
+                <span>微信</span>
+                <strong>待接入</strong>
+              </div>
+              <div class="channel placeholder">
+                <span>WhatsApp</span>
+                <strong>待接入</strong>
+              </div>
+            </div>
+          </div>
+          <form class="contact-form" id="contactForm">
+            <label>
+              需要的服务
+              <select name="service">
+                <option>Facebook / 社交账号</option>
+                <option>OpenAI API Token 中转</option>
+                <option>ChatGPT / Claude 账号</option>
+                <option>Google / Gmail 账号</option>
+                <option>交易所返佣链接</option>
+                <option>不确定，让客服推荐</option>
+              </select>
+            </label>
+            <label>
+              你的用途
+              <textarea name="purpose" placeholder="例如：我要做海外广告投放前准备 / 我要接入 AI API..."></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary btn-block">提交咨询</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo-icon sm">星</span>
+          <div>
+            <strong>星桥账号</strong>
+            <span>出海账号 · AI Token · 中文教程中心</span>
+          </div>
+        </div>
+        <nav class="footer-nav">
+          <a href="#shop">商品购买</a>
+          <a href="#guides">教程中心</a>
+          <a href="#payment">付款地址</a>
+          <a href="#contact">联系客服</a>
+        </nav>
+        <div class="footer-legal">
+          <span>Terms · Privacy · Refund · Risk Disclosure</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
