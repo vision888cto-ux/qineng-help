@@ -1,5 +1,5 @@
 import { getProduct } from "../../lib/products.js";
-import { createOrderNo, createPayment, getClientIp, getConfig } from "../../lib/epay.js";
+import { createOrderNo, buildSubmitUrl, getConfig } from "../../lib/epay.js";
 
 const PAY_TYPES = { alipay: "alipay", wxpay: "wxpay" };
 
@@ -29,40 +29,17 @@ export default async function handler(req, res) {
     const { siteUrl } = getConfig();
     const outTradeNo = createOrderNo();
 
-    const result = await createPayment({
+    const payurl = buildSubmitUrl({
       type,
       outTradeNo,
       name: product.name,
       money: product.price,
       notifyUrl: `${siteUrl}/api/pay/notify`,
       returnUrl: `${siteUrl}/api/pay/return`,
-      clientip: getClientIp(req),
       param: productId,
     });
 
-    if (result.code !== 1) {
-      return res.status(502).json({ ok: false, msg: result.msg || "创建支付失败" });
-    }
-
-    if (result.payurl) {
-      return res.status(200).json({
-        ok: true,
-        payurl: result.payurl,
-        outTradeNo,
-        qrcode: result.qrcode || null,
-      });
-    }
-
-    if (result.qrcode) {
-      return res.status(200).json({
-        ok: true,
-        qrcode: result.qrcode,
-        outTradeNo,
-        payurl: null,
-      });
-    }
-
-    return res.status(502).json({ ok: false, msg: "支付接口未返回付款链接" });
+    return res.status(200).json({ ok: true, payurl, outTradeNo });
   } catch (err) {
     console.error("[pay/create]", err);
     return res.status(500).json({ ok: false, msg: err.message || "服务器错误" });
